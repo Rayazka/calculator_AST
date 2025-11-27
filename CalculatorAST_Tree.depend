@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1764223001 source:c:\users\user\documents\kuliah\semester_3\strukturdata\tubes\calculatorast_tree\stack.cpp
+	"stack.h"
+
+1764222900 c:\users\user\documents\kuliah\semester_3\strukturdata\tubes\calculatorast_tree\stack.h
+	"tree.h"
+
+1764223840 c:\users\user\documents\kuliah\semester_3\strukturdata\tubes\calculatorast_tree\tree.h
+	<iostream>
+
+1764223849 source:c:\users\user\documents\kuliah\semester_3\strukturdata\tubes\calculatorast_tree\tree.cpp
+	"tree.h"
+
+1764223873 source:c:\users\user\documents\kuliah\semester_3\strukturdata\tubes\calculatorast_tree\main.cpp
+	<iostream>
+	"tree.h"
+	"stack.h"
+
