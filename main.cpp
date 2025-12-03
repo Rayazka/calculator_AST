@@ -1,49 +1,68 @@
+#include <bits/stdc++.h>
 #include <iostream>
 #include "tree.h"
-#include "stack.h"
+#include "DLL.h"
+#include "cctype"
 
 using namespace std;
 
-int main()
-{
-    Stack s;
-    createStack(s);
-    address p, n1, n2;
+int main() {
+    List L;
+    //address R;
+    //createTree(R);
+    createList(L);
+    string input;
+    string del = " ";
+    adrList p;
 
     cout << "=== My Calkulator ===" << endl;
+    cout << "Masukan operasi matematika: ";
+    getline(cin, input); // read full line
 
-    // Step 1: Ketemu '3', Push
-    push(s, alokasi('3'));
+    // Find first occurrence of the delimiter
+    auto pos = input.find(del);
 
-    // Step 2: Ketemu '5', Push
-    push(s, alokasi('5'));
+    // While there are still delimiters in the
+  	// string
+    while (pos != string::npos) {
 
-    // Step 3: Ketemu '2', Push
-    push(s, alokasi('2'));
+        // Extracting the substring up to the
+      	// delimiter
+        p = allocate(input.substr(0, pos));
+        insertLast(L, p);
 
-    // Step 4: Ketemu '*', Pop dua angka teratas (2 dan 5)
-    p = alokasi('*');
-    pop(s, n2);
-    pop(s, n1);
-    p->right = n2;
-    p->left = n1;
-    push(s, p);  // push (sub-tree 5*2) balik ke stack
+        // Erase the extracted part from the
+      	// original string
+        input.erase(0, pos + del.length());
+
+        // Find the next occurrence of the
+      	// delimiter
+        pos = input.find(del);
+    }
+
+    //allocate last substring
+    p = allocate(input);
+    insertLast(L, p);
+
+    printInfo(L); //placeholder: cek kode
+
+
 
     // Step 5: Ketemu '+', Pop dua node teratas (sub-tree tadi dan 3)
-    p = alokasi('+');
-    pop(s, n2);    // Pop kanan (sub-tree 5*2)
-    pop(s, n1);
-    p->right = n2;
-    p->left = n1;
-    push(s, p);       // Tree utuh ada di puncak stack
+    //p = alokasi('+');
+    //pop(s, n2);    // Pop kanan (sub-tree 5*2)
+    //pop(s, n1);
+    //p->right = n2;
+    //p->left = n1;
+    //push(s, p);       // Tree utuh ada di puncak stack
 
     // Ambil Root Tree dari Stack
-    address root;
-    pop(s, root);
+    //address root;
+    //pop(s, root);
 
-    cout << "In-Order Traversal (Bentuk Matematika): ";
-    printInOrder(root);
-    cout << endl;
+    //cout << "In-Order Traversal (Bentuk Matematika): ";
+    //printInOrder(root);
+    //cout << endl;
 
-    cout << "Hasil Perhitungan: " << evaluate(root) << endl;
+    //cout << "Hasil Perhitungan: " << evaluate(root) << endl;
 }

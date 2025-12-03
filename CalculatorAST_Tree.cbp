@@ -32,9 +32,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="DLL.cpp" />
+		<Unit filename="DLL.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="stack.cpp" />
-		<Unit filename="stack.h" />
 		<Unit filename="tree.cpp" />
 		<Unit filename="tree.h" />
 		<Extensions>
