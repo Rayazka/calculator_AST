@@ -5,7 +5,7 @@
 using namespace std;
 
 // Tipe data Tree
-typedef char infotype;
+typedef string infotype;
 typedef struct Node *address;
 
 struct Node{
@@ -17,6 +17,8 @@ struct Node{
 // Fungsi dasar Tree
 address alokasi(infotype x);
 void createTree(address &root);
+void createNode(address p);
+void insertBranch(address &root, address p);
 bool isLeaf(address p); // Cek apakah angka atau operator
 int evaluate(address p); // Hitung hasil
 void printInOrder(address p);
