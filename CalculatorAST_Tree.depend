@@ -43,3 +43,24 @@
 	"cctype"
 	<iostream>
 
+1764899811 source:d:\app\cb\tp\tubes\ast\calculator_ast\dll.cpp
+	"DLL.h"
+	"cctype"
+	<iostream>
+
+1764900821 d:\app\cb\tp\tubes\ast\calculator_ast\dll.h
+	"tree.h"
+
+1764900342 d:\app\cb\tp\tubes\ast\calculator_ast\tree.h
+	<iostream>
+
+1764730313 source:d:\app\cb\tp\tubes\ast\calculator_ast\tree.cpp
+	"tree.h"
+
+1764901236 source:d:\app\cb\tp\tubes\ast\calculator_ast\main.cpp
+	<bits/stdc++.h>
+	<iostream>
+	"tree.h"
+	"DLL.h"
+	"cctype"
+

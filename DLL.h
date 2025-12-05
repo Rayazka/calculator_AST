@@ -23,8 +23,8 @@ adrList allocate(infotype x);
 void printInfo(List L);
 
 void insertFirst(List &L, adrList p);
-//void insertAfter(List &L, adrList p);
-//void insertPrev(List &L, adrList p);
+void insertAfter(List &L, adrList p);
+void insertPrev(List &L, adrList p);
 void insertLast(List &L, adrList p);
 
 void deleteFirst(List &L, adrList p);
@@ -32,6 +32,6 @@ void deleteAfter(List &L, adrList &p, adrList q);
 void deletePrev(List &L, adrList &p, adrList q);
 void deleteLast(List &L, adrList p);
 
-void pushToTree(List &L, adrList root);
+void pushToTree(List &L, adrList &root); // ubah list ke tree
 
 #endif // DLL_H_INCLUDED

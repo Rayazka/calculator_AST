@@ -2,6 +2,8 @@
 #include "cctype"
 #include <iostream>
 
+using namespace std;
+
 void createList(List &L){
     L.First = nullptr;
     L.Last = nullptr;
