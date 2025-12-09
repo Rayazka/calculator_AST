@@ -64,3 +64,31 @@
 	"DLL.h"
 	"cctype"
 
+1765264754 source:/home/ray/Documents/KULIAH/STD/Tubes/calculator_AST/DLL.cpp
+	"DLL.h"
+	<iostream>
+
+1765260050 /home/ray/Documents/KULIAH/STD/Tubes/calculator_AST/DLL.h
+	"tree.h"
+
+1765263789 /home/ray/Documents/KULIAH/STD/Tubes/calculator_AST/tree.h
+	<iostream>
+
+1765264296 source:/home/ray/Documents/KULIAH/STD/Tubes/calculator_AST/main.cpp
+	<iostream>
+	<string>
+	<limits>
+	"tree.h"
+	"DLL.h"
+	"TLL.h"
+
+1765263837 /home/ray/Documents/KULIAH/STD/Tubes/calculator_AST/TLL.h
+	"tree.h"
+
+1765263815 source:/home/ray/Documents/KULIAH/STD/Tubes/calculator_AST/tree.cpp
+	"tree.h"
+
+1765264393 source:/home/ray/Documents/KULIAH/STD/Tubes/calculator_AST/TLL.cpp
+	"TLL.h"
+	<iostream>
+

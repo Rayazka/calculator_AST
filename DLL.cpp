@@ -1,5 +1,4 @@
 #include "DLL.h"
-#include "cctype"
 #include <iostream>
 
 using namespace std;
@@ -10,12 +9,12 @@ void createList(List &L){
 }
 
 bool isEmpty(List L){
-    return L.First == nullptr && L.Last == nullptr;
+    return L.First == nullptr;
 }
 
-adrList allocate(infotype x){
+adrList allocateDLL(address node){
     adrList p = new elmList;
-    p->info = x;
+    p->treeNode = node;
     p->next = nullptr;
     p->prev = nullptr;
     return p;
@@ -29,7 +28,10 @@ void printInfo(List L){
         p = L.First;
         cout << "daftar elemen list: ";
         while(p != nullptr){
-            cout << p->info;
+            // Kita akses info yang ada di dalam treeNode
+            if (p->treeNode != nullptr) {
+                cout << "[" << p->treeNode->info << "] ";
+            }
             p = p->next;
             if(p != nullptr){
                 cout << ", ";
@@ -111,5 +113,86 @@ void deleteLast(List &L, adrList &p){
     }
 }
 
-void pushToTree(List &L, adrList root){
+void deleteNodeList(List &L, adrList p){
+    if(p == nullptr) return;
+
+    if(p == L.First && p == L.Last){
+        L.First = nullptr;
+        L.Last = nullptr;
+    }else if(p == L.First){
+        L.First = p->next;
+        (L.First)->prev=nullptr;
+    }else if(p == L.Last){
+        L.Last = p->prev;
+        (L.Last)->next = nullptr;
+    }else{
+        p->prev->next = p->next;
+        p->next->prev = p->prev;
+    }
+    delete p;
+}
+
+void joinNodeToTree(List &L, adrList opNode){
+    adrList kiri = opNode->prev;
+    adrList kanan = opNode->next;
+
+    if (kiri != nullptr && kanan != nullptr) {
+        // 1. Sambungkan Tree Node
+        // Operator menunjuk ke tree milik node kiri dan kanan DLL
+        opNode->treeNode->left = kiri->treeNode;
+        opNode->treeNode->right = kanan->treeNode;
+
+        // 2. Hapus node kiri dan kanan dari DLL
+        // (karena mereka sudah masuk/dicaplok ke dalam tree operator)
+        deleteNodeList(L, kiri);  // <-- Perbaikan nama fungsi
+        deleteNodeList(L, kanan); // <-- Perbaikan nama fungsi
+    }
+}
+
+address buildTreeFromDLL(List &L) {
+    if (isEmpty(L)) return nullptr;
+
+    // === PASS 1: Prioritas Tinggi (Kali dan Bagi) ===
+    adrList P = L.First;
+    while (P != nullptr) {
+        // SAFETY CHECK: Pastikan treeNode tidak NULL sebelum akses info
+        if (P->treeNode != nullptr) {
+            string val = P->treeNode->info;
+
+            if (val == "*" || val == "/") {
+                joinNodeToTree(L, P);
+                // Setelah join, struktur berubah. Pindah ke node selanjutnya yang valid.
+                P = P->next;
+            } else {
+                P = P->next;
+            }
+        } else {
+            // Jika treeNode null (node sampah), lewati saja
+            P = P->next;
+        }
+    }
+
+    // === PASS 2: Prioritas Rendah (Tambah dan Kurang) ===
+    P = L.First;
+    while (P != nullptr) {
+        // SAFETY CHECK: Sama seperti di atas
+        if (P->treeNode != nullptr) {
+            string val = P->treeNode->info;
+
+            if (val == "+" || val == "-") {
+                joinNodeToTree(L, P);
+                P = P->next;
+            } else {
+                P = P->next;
+            }
+        } else {
+            P = P->next;
+        }
+    }
+
+    // Jika sukses, list tinggal menyisakan 1 node, itulah Root Tree-nya
+    if (L.First != nullptr) {
+        return L.First->treeNode;
+    }
+    return nullptr;
 }
