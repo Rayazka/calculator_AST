@@ -15,12 +15,23 @@ struct Node{
 };
 
 // Fungsi dasar Tree
-address alokasi(infotype x);
+address allocateTree(infotype x);
 void createTree(address &root);
-void createNode(address p);
-void insertBranch(address &root, address p);
 bool isLeaf(address p); // Cek apakah angka atau operator
 int evaluate(address p); // Hitung hasil
+
+// Traversal
 void printInOrder(address p);
+void printPreOrder(address p);
+void printPostOrder(address p);
+
+// Copy Tree
+address copyTree(address root);
+void deleteAllNodes(address &root);
+string treeToString(address root);
+
+// Edit & Search
+address findNode(address root, string val);
+void updateNode(address p, string newVal);
 
 #endif // TREE_H_INCLUDED

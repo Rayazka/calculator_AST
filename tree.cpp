@@ -1,14 +1,13 @@
 #include "tree.h"
 
-address alokasi(infotype x){
+address allocateTree(infotype x){
     address p = new Node;
-    if(p != nullptr){
-        p->info = x;
-        p->left = nullptr;
-        p->right = nullptr;
-    }
+    p->info = x;
+    p->left = nullptr;
+    p->right = nullptr;
     return p;
 }
+
 void createTree(address &root){
     root = nullptr;
 }
@@ -40,10 +39,84 @@ int evaluate(address p){
 
      return 0;
 }
+
+// Traversal
 void printInOrder(address p){
     if(p != nullptr){
         printInOrder(p->left);
         cout << p->info << " ";
         printInOrder(p->right);
     }
+}
+void printPreOrder(address p){
+    if(p!=nullptr){
+        cout << p->info << " ";
+        printPreOrder(p->left);
+        printPreOrder(p->right);
+    }
+}
+void printPostOrder(address p){
+    if(p!=nullptr){
+        printPostOrder(p->left);
+        printPostOrder(p->right);
+        cout << p->info << " ";
+    }
+}
+
+// Mencari node tertentu dalam tree
+address findNode(address root, string val) {
+    if (root == nullptr) return nullptr;
+
+    // Cek apakah node saat ini adalah yang dicari
+    if (root->info == val) return root;
+
+    // cari di subtree kiri
+    address found = findNode(root->left, val);
+    if (found != nullptr) return found;
+
+    //subtree kanan
+    return findNode(root->right, val);
+}
+
+// Mengupdate nilai info pada node
+void updateNode(address p, string newVal) {
+    if (p != nullptr) p->info = newVal;
+}
+
+address copyTree(address root) {
+    if (root == nullptr) {
+        return nullptr;
+    }
+
+    // 1. Buat node baru dengan info yang sama
+    address newNode = allocateTree(root->info);
+
+    // 2. Salin anak kiri dan kanan secara rekursif
+    newNode->left = copyTree(root->left);
+    newNode->right = copyTree(root->right);
+
+    return newNode;
+}
+
+// Fungsi untuk menghapus seluruh tree (agar memori tidak bocor saat ditimpa)
+void deleteAllNodes(address &root) {
+    if (root == nullptr) return;
+
+    // Hapus anak-anak dulu (Post-Order delete)
+    deleteAllNodes(root->left);
+    deleteAllNodes(root->right);
+
+    // Hapus node itu sendiri
+    delete root;
+    root = nullptr;
+}
+
+// Konversi Tree ke String (In-Order traversal)
+string treeToString(address p) {
+    if (p == nullptr) return "";
+
+    if (isLeaf(p)) return p->info;
+
+    // Format: (kiri operator kanan)
+    return treeToString(p->left) + " " + p->info + " " + treeToString(p->right);
 }

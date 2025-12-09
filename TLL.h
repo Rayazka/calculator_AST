@@ -6,7 +6,9 @@
 typedef struct elmTList *adrTList;
 
 struct elmTList{
-    Node* info;
+    address root;
+    string expression;
+    int result;
     adrTList next;
 };
 
@@ -16,17 +18,14 @@ struct TList{
 
 void createTList(TList &T);
 bool isEmpty(TList T);
-adrTList allocate(infotype x);
-void printInfo(TList T);
-
+adrTList allocateTList(address root, string exp, int res);
+void showHistory(TList T);
 void insertFirst(TList &T, adrTList p);
-void insertAfter(TList &T, adrTList p);
-void insertPrev(TList &T, adrTList p);
-void insertLast(TList &T, adrTList p);
 
-void deleteFirst(TList &T, adrTList p);
-void deleteAfter(TList &T, adrTList &p, adrTList q);
-void deletePrev(TList &T, adrTList &p, adrTList q);
-void deleteLast(TList &T, adrTList p);
+// Mengambil Tree dari History berdasarkan nomor urut
+address getTreeFromHistory(TList T, int index);
+
+// Menghapus history tertentu (beserta tree lamanya)
+void deleteHistoryByIndex(TList &T, int index);
 
 #endif // TLL_H_INCLUDED

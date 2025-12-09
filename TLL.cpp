@@ -1,5 +1,4 @@
 #include "TLL.h"
-#include "tree.h"
 #include <iostream>
 
 using namespace std;
@@ -12,31 +11,18 @@ bool isEmpty(TList T){
     return T.first == nullptr;
 }
 
-adrTList allocate(infotype x){
+adrTList allocateTList(address root, string exp, int res){
     adrTList p = new elmTList;
-
-    p->info = x;
+    p->root = root;
+    p->expression = exp;
+    p->result = res;
     p->next = nullptr;
 
     return p;
 }
 
-void printInfo(TList T){
-    if (isEmpty(T)){
-        cout << "List Kosong" << endl;
-    } else {
-        adrTList p = T.first;
-        int count = 1;
-        while (p != nullptr) {
-            cout << count << ". ";
-            printInOrder(p->info);
-            cout << endl;
-        }
-    }
-}
-
 void insertFirst(TList &T, adrTList p){
-    if (isEmpty(T)){
+    if(T.first == nullptr){
         T.first = p;
     } else {
         p->next = T.first;
@@ -44,10 +30,43 @@ void insertFirst(TList &T, adrTList p){
     }
 }
 
-void insertAfter(TList &T, adrTList p){
+// Fungsi Mencari Tree berdasarkan Nomor Urut (Untuk fitur Edit)
+address getTreeFromHistory(TList T, int index) {
+    adrTList p = T.first;
+    int i = 1;
+
+    // Loop sampai ketemu index yang diminta atau list habis
+    while (p != nullptr && i < index) {
+        p = p->next;
+        i++;
+    }
+
+    // Jika ketemu, kembalikan pointer Root Tree-nya
+    if (p != nullptr && i == index) {
+        cout << ">> Memilih ekspresi: " << p->expression << endl;
+        return p->root;
+    }
+
+    return nullptr; // Tidak ketemu
 }
 
-void insertPrev(TList &T, adrTList p){
+// Menampilkan seluruh riwayat
+void showHistory(TList T) {
+    if (T.first == nullptr) {
+        cout << ">> History Kosong. Belum ada perhitungan." << endl;
+        return;
+    }
+
+    adrTList p = T.first;
+    int i = 1;
+
+    cout << "\n=== RIWAYAT KALKULASI ===" << endl;
+    while (p != nullptr) {
+        cout << i << ". " << p->expression << " = " << p->result << endl;
+        p = p->next;
+        i++;
+    }
+    cout << "=========================" << endl;
 }
 
 void insertLast(TList &T, adrTList p){
@@ -62,11 +81,33 @@ void insertLast(TList &T, adrTList p){
     }
 }
 
-void deleteFirst(TList &T, adrTList p){
-}
+void deleteHistoryByIndex(TList &T, int index) {
+    if (T.first == nullptr) return;
 
-void deleteAfter(TList &T, adrTList &p, adrTList q){
-}
+    adrTList p = T.first;
+    adrTList prev = nullptr;
+    int i = 1;
 
-void deletePrev(TList &T, adrTList p){
+    // Cari node ke-index
+    while (p != nullptr && i < index) {
+        prev = p;
+        p = p->next;
+        i++;
+    }
+
+    // Jika ketemu
+    if (p != nullptr && i == index) {
+        // 1. Putuskan link dari list
+        if (p == T.first) {
+            T.first = p->next;
+        } else {
+            prev->next = p->next;
+        }
+
+        // 2. Hapus tree lama yang menempel di node ini (PENTING!)
+        deleteAllNodes(p->root);
+
+        // 3. Hapus node history
+        delete p;
+    }
 }
