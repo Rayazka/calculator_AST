@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cctype>
 #include "tree.h"
 #include "DLL.h"
 #include "TLL.h"
@@ -23,6 +24,22 @@ int showMenu() {
     return choice;
 }
 
+bool validasi(const string& input) {
+    try {
+        int angka = stoi(input);
+    } catch (const invalid_argument& e) {
+        if (input.empty()){
+            cout << "Error: Input tidak boleh kosong!" << endl;
+        } else {
+            cout << "Error: Input bukan angka!" << endl;
+        }
+        return false;
+    }
+
+    return true;
+}
+
+
 int main() {
     // Inisialisasi History List (TLL)
     TList History;
@@ -45,20 +62,14 @@ int main() {
             cout << "Masukkan Operasi: ";
             getline(cin, expression);
 
-            // Validasi input kosong
-            if (expression.empty()) {
-                cout << "Error: Input tidak boleh kosong!" << endl;
-                continue;
-            }
-
             // Simpan copy string asli untuk history
             string originalExpr = expression;
             string del = " ";
-            size_t pos = 0;
+            size_t pos = expression.find(del);
 
-            // Parsing string lalu masukkan ke DLL sebagai Tree Node
-            while ((pos = expression.find(del)) != string::npos) {
-            cout << " 1 " << endl;
+            if (validasi(expression.substr(0, pos))){
+                // Parsing string lalu masukkan ke DLL sebagai Tree Node
+                while ((pos = expression.find(del)) != string::npos) {
                 string token = expression.substr(0, pos);
                 if (!token.empty()) {
                     // Buat node tree dari token (angka/operator)
@@ -67,34 +78,34 @@ int main() {
                     insertLast(L, allocateDLL(tNode));
                 }
                 expression.erase(0, pos + del.length());
+                }
+                // Proses token terakhir (sisa string)
+                if (!expression.empty()) {
+                    address tNode = allocateTree(expression);
+                    insertLast(L, allocateDLL(tNode));
+                }
+
+                // Build Tree dari DLL
+                address root = buildTreeFromDLL(L);
+
+                if (root != nullptr) {
+                    // Hitung Hasil
+                    int hasil = evaluate(root);
+
+                    cout << "\n>>> HASIL PERHITUNGAN <<<" << endl;
+                    cout << "Ekspresi (In-Order): ";
+                    printInOrder(root);
+                    cout << endl;
+                    cout << "Hasil Akhir        : " << hasil << endl;
+
+                    // Simpan ke History (TLL)
+                    adrTList historyNode = allocateTList(root, originalExpr, hasil);
+                    insertFirst(History, historyNode); // Masukkan ke history paling atas
+                    cout << "(Data berhasil disimpan ke History)" << endl;
+                } else {
+                    cout << "Error: Gagal membangun tree. Cek format input!" << endl;
+                }
             }
-            // Proses token terakhir (sisa string)
-            if (!expression.empty()) {
-                address tNode = allocateTree(expression);
-                insertLast(L, allocateDLL(tNode));
-            }
-
-            // Build Tree dari DLL
-            address root = buildTreeFromDLL(L);
-
-            if (root != nullptr) {
-                // Hitung Hasil
-                int hasil = evaluate(root);
-
-                cout << "\n>>> HASIL PERHITUNGAN <<<" << endl;
-                cout << "Ekspresi (In-Order): ";
-                printInOrder(root);
-                cout << endl;
-                cout << "Hasil Akhir        : " << hasil << endl;
-
-                // Simpan ke History (TLL)
-                adrTList historyNode = allocateTList(root, originalExpr, hasil);
-                insertFirst(History, historyNode); // Masukkan ke history paling atas
-                cout << "(Data berhasil disimpan ke History)" << endl;
-            } else {
-                cout << "Error: Gagal membangun tree. Cek format input!" << endl;
-            }
-
         } else if (pilihan == 2) {
             // LIHAT HISTORY
             showHistory(History);
@@ -102,14 +113,21 @@ int main() {
         } else if (pilihan == 3) {
             // EDIT OPERASI
             showHistory(History);
-            if (isEmpty(History)) continue; // Balik ke menu jika kosong (menggunakan isEmpty dari TLL.cpp)
+            if (isEmpty(History)){
+                continue; // Balik ke menu jika kosong (menggunakan isEmpty dari TLL.cpp)
+            }
 
-            int idx;
+            string idx;
+            int id;
             cout << "\nPilih Nomor History yang mau diedit: ";
             cin >> idx;
 
+            if (validasi(idx)){
+                id = stoi(idx);
+            }
+
             // Ambil pointer root tree dari history yang dipilih
-            address targetRoot = getTreeFromHistory(History, idx);
+            address targetRoot = getTreeFromHistory(History, id);
 
             if (targetRoot != nullptr) {
                 string cari, ganti;
@@ -134,7 +152,7 @@ int main() {
 
                     address newRoot = copyTree(targetRoot);
                     string newExp = treeToString(newRoot);
-                    deleteHistoryByIndex(History, idx);
+                    deleteHistoryByIndex(History, id);
                     // Buat node history baru dengan data yang sudah fresh
                     adrTList newHistoryNode = allocateTList(newRoot, newExp, newResult);
                     insertFirst(History, newHistoryNode);
@@ -145,10 +163,7 @@ int main() {
                 } else {
                     cout << "Error: Karakter '" << cari << "' tidak ditemukan dalam operasi tersebut." << endl;
                 }
-            } else {
-                cout << "Error: Nomor history tidak valid." << endl;
             }
-
         } else if (pilihan == 0) {
             cout << "Terima kasih telah menggunakan aplikasi ini." << endl;
         } else {

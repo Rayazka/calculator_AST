@@ -43,26 +43,26 @@
 	"cctype"
 	<iostream>
 
-1764899811 source:d:\app\cb\tp\tubes\ast\calculator_ast\dll.cpp
+1765266340 source:d:\app\cb\tp\tubes\ast\calculator_ast\dll.cpp
 	"DLL.h"
-	"cctype"
 	<iostream>
 
-1764900821 d:\app\cb\tp\tubes\ast\calculator_ast\dll.h
+1765266340 d:\app\cb\tp\tubes\ast\calculator_ast\dll.h
 	"tree.h"
 
-1764900342 d:\app\cb\tp\tubes\ast\calculator_ast\tree.h
+1765266341 d:\app\cb\tp\tubes\ast\calculator_ast\tree.h
 	<iostream>
 
-1764730313 source:d:\app\cb\tp\tubes\ast\calculator_ast\tree.cpp
+1765266341 source:d:\app\cb\tp\tubes\ast\calculator_ast\tree.cpp
 	"tree.h"
 
-1764901236 source:d:\app\cb\tp\tubes\ast\calculator_ast\main.cpp
-	<bits/stdc++.h>
+1765345914 source:d:\app\cb\tp\tubes\ast\calculator_ast\main.cpp
 	<iostream>
+	<string>
+	<cctype>
 	"tree.h"
 	"DLL.h"
-	"cctype"
+	"TLL.h"
 
 1765264754 source:/home/ray/Documents/KULIAH/STD/Tubes/calculator_AST/DLL.cpp
 	"DLL.h"
@@ -89,6 +89,13 @@
 	"tree.h"
 
 1765264393 source:/home/ray/Documents/KULIAH/STD/Tubes/calculator_AST/TLL.cpp
+	"TLL.h"
+	<iostream>
+
+1765266340 d:\app\cb\tp\tubes\ast\calculator_ast\tll.h
+	"tree.h"
+
+1765266340 source:d:\app\cb\tp\tubes\ast\calculator_ast\tll.cpp
 	"TLL.h"
 	<iostream>
 
