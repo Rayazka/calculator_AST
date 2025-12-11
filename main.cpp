@@ -69,6 +69,7 @@ void hitungBaru(TList &History){
         insertLast(L, allocateDLL(tNode));
         expression.erase(0, pos + del.length());
     }
+
     // Proses token terakhir (sisa string)
     if (!expression.empty()) {
         address tNode = allocateTree(expression);
@@ -77,7 +78,6 @@ void hitungBaru(TList &History){
 
     // Build Tree dari DLL
     address root = buildTreeFromDLL(L);
-
     if (root == nullptr) {
         cout << "Error: Gagal membangun tree. Cek format input!" << endl;
         return;
@@ -119,9 +119,6 @@ void editHistory(TList &History){
     int target;
     cout << "\n--- EDIT MODE ---" << endl;
     cout << "Operasi saat ini: "; printInOrder(targetRoot); cout << endl;
-
-    // //
-
     cout << "1. Ganti Operator" << endl;
     cout << "2. Ganti Angka" << endl;
     cout << "0. Kembali ke menu utama" << endl;
@@ -133,7 +130,6 @@ void editHistory(TList &History){
 
     switch (id){
         case 1:{
-            cout << "Operasi saat ini: "; printInOrder(targetRoot); cout << endl;
             cout << "Masukkan urutan operator yang mau diganti (dari kiri ke kanan): ";
             cin >> cari;
 
@@ -229,6 +225,7 @@ int main() {
                 cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
                 break;
         }
+
     } while (pilihan != 0);
 
     return 0;
