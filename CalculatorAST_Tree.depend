@@ -43,23 +43,22 @@
 	"cctype"
 	<iostream>
 
-1765266340 source:d:\app\cb\tp\tubes\ast\calculator_ast\dll.cpp
+1765439987 source:d:\app\cb\tp\tubes\ast\calculator_ast\dll.cpp
 	"DLL.h"
 	<iostream>
 
-1765266340 d:\app\cb\tp\tubes\ast\calculator_ast\dll.h
+1765442040 d:\app\cb\tp\tubes\ast\calculator_ast\dll.h
 	"tree.h"
 
-1765266341 d:\app\cb\tp\tubes\ast\calculator_ast\tree.h
+1765441058 d:\app\cb\tp\tubes\ast\calculator_ast\tree.h
 	<iostream>
 
-1765266341 source:d:\app\cb\tp\tubes\ast\calculator_ast\tree.cpp
+1765440105 source:d:\app\cb\tp\tubes\ast\calculator_ast\tree.cpp
 	"tree.h"
 
-1765345914 source:d:\app\cb\tp\tubes\ast\calculator_ast\main.cpp
+1765441417 source:d:\app\cb\tp\tubes\ast\calculator_ast\main.cpp
 	<iostream>
 	<string>
-	<cctype>
 	"tree.h"
 	"DLL.h"
 	"TLL.h"
@@ -92,10 +91,10 @@
 	"TLL.h"
 	<iostream>
 
-1765266340 d:\app\cb\tp\tubes\ast\calculator_ast\tll.h
+1765439987 d:\app\cb\tp\tubes\ast\calculator_ast\tll.h
 	"tree.h"
 
-1765266340 source:d:\app\cb\tp\tubes\ast\calculator_ast\tll.cpp
+1765439987 source:d:\app\cb\tp\tubes\ast\calculator_ast\tll.cpp
 	"TLL.h"
 	<iostream>
 

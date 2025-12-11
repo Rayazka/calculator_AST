@@ -78,6 +78,24 @@ address findNode(address root, string val) {
     return findNode(root->right, val);
 }
 
+// Mencari node operator dalam tree
+address findOperatorByOrder(address root, int targetOrder, int &count) {
+    if (root == nullptr) return nullptr;
+
+    // Traverse subtree kiri
+    address found = findOperatorByOrder(root->left, targetOrder, count);
+    if (found != nullptr) return found;
+
+    // Cek node saat ini
+    if (root->info == "+" || root->info == "-" || root->info == "*" || root->info == "/") {
+        count++;
+        if (count == targetOrder) return root;
+    }
+
+    // Traverse subtree kanan
+    return findOperatorByOrder(root->right, targetOrder, count);
+}
+
 // Mengupdate nilai info pada node
 void updateNode(address p, string newVal) {
     if (p != nullptr) p->info = newVal;

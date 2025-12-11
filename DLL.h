@@ -23,8 +23,6 @@ adrList allocateDLL(address node);
 void printInfo(List L);
 
 void insertFirst(List &L, adrList p);
-void insertAfter(List &L, adrList p);
-void insertPrev(List &L, adrList p);
 void insertLast(List &L, adrList p);
 
 void deleteFirst(List &L, adrList p);
