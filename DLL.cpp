@@ -23,22 +23,18 @@ adrList allocateDLL(address node){
 void printInfo(List L){
     if(isEmpty(L)){
         cout << "List Kosong" << endl;
-    } else {
-        adrList p = nullptr;
-        p = L.First;
-        cout << "daftar elemen list: ";
-        while(p != nullptr){
-            // Kita akses info yang ada di dalam treeNode
-            if (p->treeNode != nullptr) {
-                cout << "[" << p->treeNode->info << "] ";
-            }
-            p = p->next;
-            if(p != nullptr){
-                cout << ", ";
-            } else {
-                cout << endl;
-            }
+        return;
+    }
+    adrList p = nullptr;
+    p = L.First;
+    cout << "daftar elemen list: ";
+    while(p != nullptr){
+        // Kita akses info yang ada di dalam treeNode
+        if (p->treeNode != nullptr) {
+            cout << "[" << p->treeNode->info << "] ";
         }
+        p = p->next;
+        cout << (p != nullptr ? ", " : "\n");
     }
 }
 
@@ -52,12 +48,6 @@ void insertFirst(List &L, adrList p){
         L.First = p;
     }
 }
-
-//void insertAfter(List &L, adrList p){
-//}
-
-//void insertPrev(List &L, adrList p){
-//}
 
 void insertLast(List &L, adrList p){
     if(isEmpty(L)){
@@ -156,18 +146,17 @@ address buildTreeFromDLL(List &L) {
     adrList P = L.First;
     while (P != nullptr) {
         // SAFETY CHECK: Pastikan treeNode tidak NULL sebelum akses info
-        if (P->treeNode != nullptr) {
-            string val = P->treeNode->info;
-
-            if (val == "*" || val == "/") {
-                joinNodeToTree(L, P);
-                // Setelah join, struktur berubah. Pindah ke node selanjutnya yang valid.
-                P = P->next;
-            } else {
-                P = P->next;
-            }
-        } else {
+        if (P->treeNode == nullptr) {
             // Jika treeNode null (node sampah), lewati saja
+            P = P->next;
+        }
+        string val = P->treeNode->info;
+
+        if (val == "*" || val == "/") {
+            joinNodeToTree(L, P);
+            // Setelah join, struktur berubah. Pindah ke node selanjutnya yang valid.
+            P = P->next;
+        } else {
             P = P->next;
         }
     }
@@ -177,14 +166,13 @@ address buildTreeFromDLL(List &L) {
     while (P != nullptr) {
         // SAFETY CHECK: Sama seperti di atas
         if (P->treeNode != nullptr) {
-            string val = P->treeNode->info;
+            P = P->next;
+        }
+        string val = P->treeNode->info;
 
-            if (val == "+" || val == "-") {
-                joinNodeToTree(L, P);
-                P = P->next;
-            } else {
-                P = P->next;
-            }
+        if (val == "+" || val == "-") {
+            joinNodeToTree(L, P);
+            P = P->next;
         } else {
             P = P->next;
         }

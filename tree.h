@@ -32,6 +32,7 @@ string treeToString(address root);
 
 // Edit & Search
 address findNode(address root, string val);
+address findOperatorByOrder(address root, int targetOrder, int &count);
 void updateNode(address p, string newVal);
 
 #endif // TREE_H_INCLUDED
